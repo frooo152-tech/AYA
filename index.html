@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>For My Sweetheart Aya 🤍</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: radial-gradient(circle at top left, #7a1e2c, #4a0f1a 60%, #2a060c);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        /* Soft glow behind card */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,200,220,0.15), transparent);
+            z-index: 0;
+        }
+
+        /* Magical floating lights */
+        .floating-glow {
+            position: absolute;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            background: rgba(255,200,220,0.1);
+            animation: floatGlow 10s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0,0) scale(1); opacity:0.1; }
+            50% { transform: translate(50px, -80px) scale(1.2); opacity:0.2; }
+            100% { transform: translate(0,0) scale(1); opacity:0.1; }
+        }
+
+        .card {
+            position: relative;
+            background: white;
+            padding: 30px 20px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+            max-width: 420px;
+            width: 90%;
+            opacity: 0;
+            z-index: 1;
+            animation: fadeIn 1.5s ease forwards;
+        }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        img {
+            width: 80%;
+            max-width: 200px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #6a1b4d;
+        }
+
+        p {
+            font-size: 1em;
+            color: #444;
+            margin-bottom: 25px;
+            line-height: 1.6em;
+            min-height: 3em;
+        }
+
+        #question {
+            font-size: 1.6em;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 25px;
+            color: #6a1b4d;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .buttons { position: relative; display: flex; justify-content: center; flex-wrap: wrap; }
+
+        button {
+            padding: 12px 25px;
+            margin: 8px;
+            border-radius: 30px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        #yes { background-color: #6a1b4d; color: white; transform: scale(1); }
+        #yes:hover { background-color: #8c1c5a; }
+        #no { background-color: #f1f1f1; color: #333; position: absolute; }
+
+        /* Petals and hearts */
+        .petal, .heart {
+            position: absolute;
+            font-size: 18px;
+            animation: fall 6s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-50px) rotate(0deg); opacity:0.6; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity:0; }
+        }
+
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%,100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Tap/Bounce effect */
+        .tap {
+            animation: tapBounce 0.3s forwards;
+        }
+        @keyframes tapBounce {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 500px) {
+            h1 { font-size: 1.6em; }
+            #question { font-size: 1.4em; }
+            p { font-size: 0.95em; }
+            button { font-size: 14px; padding: 10px 20px; }
+            #no { position: relative !important; margin-top: 10px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Floating Glows -->
+<div class="floating-glow" style="top: 10%; left: 20%; animation-delay: 0s;"></div>
+<div class="floating-glow" style="top: 70%; left: 80%; animation-delay: 2s;"></div>
+<div class="floating-glow" style="top: 40%; left: 50%; animation-delay: 4s;"></div>
+<div class="floating-glow" style="top: 20%; left: 80%; animation-delay: 6s;"></div>
+<div class="floating-glow" style="top: 60%; left: 30%; animation-delay: 8s;"></div>
+
+<div class="card">
+    <img id="ayaPic" src="aya.jpg" alt="My Sweetheart Aya">
+
+    <h1>My Sweetheart Aya 🤍</h1>
+
+    <p id="message"></p>
+
+    <div id="question">Will you be my Valentine?</div>
+
+    <div class="buttons">
+        <button id="yes">Yes 🤍</button>
+        <button id="no">No</button>
+    </div>
+</div>
+
+<script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const ayaPic = document.getElementById("ayaPic");
+    const message = document.getElementById("message");
+    const question = document.getElementById("question");
+
+    let noCount = 0;
+    let yesScale = 1;
+    const text = "Every day with you feels softer, lighter, and more meaningful. I have one simple question…";
+    let index = 0;
+
+    // Fade in photo
+    setTimeout(() => { ayaPic.style.opacity = "1"; }, 500);
+
+    // Typing effect for message
+    function typeText() {
+        if(index < text.length) {
+            message.innerHTML += text.charAt(index);
+            index++;
+            setTimeout(typeText, 40);
+        } else {
+            question.style.opacity = 1;
+        }
+    }
+    typeText();
+
+    // Tap animation helper
+    function tapEffect(el) {
+        el.classList.add("tap");
+        setTimeout(() => el.classList.remove("tap"), 300);
+    }
+
+    // NO button
+    function moveNo() {
+        noCount++;
+        const x = Math.random() * 300;
+        const y = Math.random() * 150;
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+        yesScale += 0.1;
+        yesBtn.style.transform = "scale(" + yesScale + ")";
+        if (noCount > 3 && noCount <= 5) noBtn.innerHTML = "No 😠";
+        if (noCount > 5) noBtn.innerHTML = "Are you sure? 🥺";
+    }
+
+    noBtn.addEventListener("mouseover", () => { moveNo(); tapEffect(noBtn); });
+    noBtn.addEventListener("touchstart", (e) => { e.preventDefault(); moveNo(); tapEffect(noBtn); });
+
+    // YES button
+    yesBtn.addEventListener("click", () => { tapEffect(yesBtn); showFinalScreen(); });
+    yesBtn.addEventListener("touchstart", (e) => { e.preventDefault(); tapEffect(yesBtn); showFinalScreen(); });
+
+    function showFinalScreen() {
+        document.body.innerHTML = `
+            <div style="text-align:center; padding:40px; position:relative; z-index:1;">
+                <h1 class="pulse" style="font-family:'Playfair Display'; font-size:2.5em; color:#ffccd5;">
+                    You’re not just my Valentine… you’re my forever. Every heartbeat reminds me how lucky I am to have you. 🤍
+                </h1>
+            </div>
+        `;
+
+        // Falling rose petals
+        for(let i=0; i<60; i++) {
+            let petal = document.createElement("div");
+            petal.innerHTML = "🌹";
+            petal.classList.add("petal");
+            petal.style.left = Math.random()*100 + "vw";
+            petal.style.fontSize = (Math.random()*20 + 15) + "px";
+            petal.style.animationDuration = (4 + Math.random()*3) + "s";
+            document.body.appendChild(petal);
+        }
+
+        // Floating hearts
+        for(let i=0; i<40; i++) {
+            let heart = document.createElement("div");
+            heart.innerHTML = "🤍";
+            heart.classList.add("heart");
+            heart.style.left = Math.random()*100 + "vw";
+            heart.style.fontSize = (Math.random()*25 + 15) + "px";
+            heart.style.animationDuration = (5 + Math.random()*3) + "s";
+            document.body.appendChild(heart);
+        }
+    }
+</script>
+
+</body>
+</html>
